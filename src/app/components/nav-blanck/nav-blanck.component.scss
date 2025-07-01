@@ -1,0 +1,13 @@
+:host{
+  display: flex;
+flex-direction: column;
+justify-content: space-between;
+min-width: 100vh;
+}
+.logout:hover{
+background-color: #11bd11;
+box-shadow: 0 0 10px #11bd1168;
+color:white;
+border-radius: 4px;
+
+}

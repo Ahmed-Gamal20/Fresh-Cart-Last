@@ -1,0 +1,32 @@
+<section class="bg-main-light rounded-4 shadow p-4 my-2 w-75 mx-auto">
+  <h2 class="text-center">shop cart:</h2>
+<div class="d-flex align-items-center justify-content-between">
+  <div>
+    <p class="text-main">total price cart: {{cartDetails.totalCartPrice|currency}}</p>
+  </div>
+  <div>
+    <button (click)="clear()" class="btn btn-outline-danger">clear</button>
+  </div>
+</div>
+  @for (item of cartDetails.products; track item.product.id) {
+    <div class="row mb-3 border-bottom">
+      <div class="col-md-1">
+        <div>
+          <img [src]="item.product.imageCover" [alt]="item.product.title" class="w-100">
+        </div>
+      </div>
+      <div class="col-md-11 d-flex align-items-center justify-content-between">
+        <div>
+          <h5>{{item.product.title}}</h5>
+          <h6 class="text-main">price: {{item.price}}</h6>
+          <span (click)="removeItem(item.product.id)" class="cr"><i class="fa-solid fa-trash text-danger"></i> remove</span>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+<span (click)="updateCount(item.product.id,item.count+1)"><i class="fa-solid fa-square-plus fa-xl cr text-main"></i></span>
+<span >{{item.count}}</span>
+<span (click)="updateCount(item.product.id,item.count-1)"><i class="fa-solid fa-square-minus fa-xl cr text-main"></i></span>
+        </div>
+      </div>
+    </div>
+  }
+</section>

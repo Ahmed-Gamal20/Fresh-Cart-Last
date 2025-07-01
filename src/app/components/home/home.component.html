@@ -1,0 +1,83 @@
+<!-- main slide -->
+ <section class="my-2 mt-4">
+<div class="row g-0">
+  <div class="col-md-9">
+<div>
+  <owl-carousel-o [options]="customOptionsMain">
+    <ng-template carouselSlide><img src="../../../assets/images/img1.avif" class="w-100" height="300px" alt=""></ng-template>
+    <ng-template carouselSlide><img src="../../../assets/images/img2.avif" class="w-100" height="300px" alt=""></ng-template>
+    <ng-template carouselSlide><img src="../../../assets/images/img3.avif" class="w-100" height="300px" alt=""></ng-template>
+    <ng-template carouselSlide><img src="../../../assets/images/img4.avif" class="w-100" height="300px" alt=""></ng-template>
+    <ng-template carouselSlide><img src="../../../assets/images/img5.avif" class="w-100" height="300px" alt=""></ng-template>
+    <ng-template carouselSlide><img src="../../../assets/images/img6.avif" class="w-100" height="300px" alt=""></ng-template>
+    <ng-template carouselSlide><img src="../../../assets/images/img7.avif" class="w-100" height="300px" alt=""></ng-template>
+
+  </owl-carousel-o>
+
+</div>
+  </div>
+<div class="col-md-3">
+<div>
+  <img src="./assets/images/grocery-banner.png" class="w-100" height="150px" alt="">
+  <img src="./assets/images/grocery-banner-2.jpeg" class="w-100" height="150px" alt="">
+
+</div>
+</div>
+</div>
+ </section>
+
+
+
+<!-- section categories -->
+ <section class="my-2">
+  <h2 class="my-2 p-1">popular categories</h2>
+  <owl-carousel-o [options]="customOptionsCat">
+
+   @for (cat of categoriesList; track cat._id) {
+    <ng-template carouselSlide >
+     <div class="p-2 border cursor-pointer">
+      <img [src]="cat.image" [alt]="cat.name" class="w-100 mb-1" height="250px">
+      <h3 class="h5 text-main">{{cat.name}}</h3>
+     </div>
+    </ng-template>
+   }
+
+  </owl-carousel-o>
+ </section>
+
+
+
+<!-- section product -->
+<section>
+  <h2>Popular Products:</h2>
+
+  <input type="search" placeholder="search product" class="w-50 mx-auto my-3 shadow bg-main-light form-control" [(ngModel)]="searchText">
+
+
+<div class="row g-3">
+@for (product of productList.slice(0,12) | search:searchText; track product.id) {
+  <div class="col-md-2">
+  <div class="product p-2 " >
+  <div [routerLink]="['/details',product.id]">
+    <img [src]="product.imageCover" class="w-100 cursor-pointer" [alt]="product.title">
+    <h4 class="small text-main">{{product.category.name}}</h4>
+    <h5 class="small">{{product.title.split(" ",2).join(" ")}}</h5>
+    <div class="d-flex justify-content-between align-items-center">
+      <span>{{product.price}} EGP</span>
+      <div>
+@for (star of [1,2,3,4,5].slice(0,product.ratingsAverage); track $index) {
+  <span><i class="fas fa-star rating-color"></i></span>
+}
+@if (product.ratingsAverage%1!==0) {
+  <span><i class="fas fa-star-half-stroke rating-color"></i></span>
+}
+        <span class="text-muted">{{product.ratingsAverage}}</span>
+      </div>
+    </div>
+  </div>
+    <button class="btn btn-main w-100 cursor-pointer" (click)="addToCart(product.id)">add to cart</button>
+  </div>
+</div>
+}
+</div>
+</section>

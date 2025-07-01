@@ -1,0 +1,66 @@
+<section class="p-2 bg-main-light shadow my-2 rounded-4">
+  <h1 class="h2 text-main">Login Now:</h1>
+<form [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
+
+
+
+  <div  class="my-2">
+    <label for="email">email:</label>
+    <input
+    [ngClass]="{
+      'is-valid':!loginForm.get('email')?.errors && (loginForm.get('email')?.touched||loginForm.get('email')?.dirty),
+      'is-invalid':loginForm.get('email')?.errors && (loginForm.get('email')?.touched||loginForm.get('email')?.dirty)
+    }"
+    formControlName="email" type="email" id="email" class="form-control">
+    @if (loginForm.get('email')?.errors && (loginForm.get('email')?.touched||loginForm.get('email')?.dirty)) {
+      <div class="alert alert-danger w-50">
+        @if(loginForm.get('email')?.getError('required')){
+           <p class="m-0">Email is required</p>
+         }
+         @else if (loginForm.get('email')?.getError('email')) {
+          <p class="m-0">input is not email</p>
+         }
+     </div>
+    }
+
+  </div>
+
+
+  <div class="my-2">
+    <label for="password">password:</label>
+    <input
+    [ngClass]="{
+      'is-valid':!loginForm.get('password')?.errors && (loginForm.get('password')?.touched||loginForm.get('password')?.dirty),
+      'is-invalid':loginForm.get('password')?.errors && (loginForm.get('password')?.touched||loginForm.get('password')?.dirty)
+    }"
+    formControlName="password" type="password" id="password" class="form-control">
+    @if (loginForm.get('password')?.errors && (loginForm.get('password')?.touched||loginForm.get('password')?.dirty)) {
+      <div class="alert alert-danger w-50">
+        @if(loginForm.get('password')?.getError('required')){
+          <p class="m-0">Password is required</p>
+        }
+        @else if (loginForm.get('password')?.getError('pattern')) {
+          <p class="m-0">password you must contain 6 chars or num </p>
+        }
+      </div>
+    }
+  </div>
+
+<div class="d-flex align-items-center justify-content-end gap-4">
+  <a routerLink='/forget' routerLinkActive="router-link-active active-link" class="link-primary" >ForgetPassword</a>
+   <button  type="submit" class="btn-main ">login
+    @if (isLoading) {
+      <span><i class="fas fa-spin fa-spinner"></i></span>
+    }
+<!-- [disabled]="loginForm.invalid || isLoading" -->
+   </button>
+</div>
+
+@if (msgError) {
+<p class="alert alert-danger w-50 m-0 ">{{msgError}}</p>
+}
+@if(msgSuccess){
+<p>Success</p>
+}
+</form>
+</section>
